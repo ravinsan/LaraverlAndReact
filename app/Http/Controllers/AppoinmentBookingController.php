@@ -59,7 +59,7 @@ class AppoinmentBookingController extends Controller
             $data = $request->all();
             $data['user_id'] = Auth::user()->id;
             AppoinmentBooking::create($data);
-            
+            $data['name'] = Auth::user()->name;
             Log::info('Appointment booked successfully', ['appointment' => $data]);
             
             dispatch(new SendEmail($data, Auth::user()->email));
@@ -121,8 +121,9 @@ class AppoinmentBookingController extends Controller
             $appointment = AppoinmentBooking::findOrFail($id);
             $appointment->status = 0;
             $appointment->save();
+            $appointment->name = Auth::user()->name;
             
-            dispatch(new SendAppointmentCancellationEmail($appointment));
+            dispatch(new SendAppointmentCancellationEmail($appointment->toArray(), Auth::user()->email));
             
             Log::info('Appointment cancelled successfully', ['id' => $id]);
             return redirect()->route('appointments.index')->with('success', 'Appointment cancelled successfully');

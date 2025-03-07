@@ -56,8 +56,8 @@
             Appointment Cancellation Notice
         </div>
         <div class="content">
-            <p>Dear <strong>{{ $appointment->user->name }}</strong>,</p>
-            <p>The appointment titled "<strong>{{ $appointment->title }}</strong>" scheduled for <strong>{{ $appointment->bdate }}</strong> has been cancelled.</p>
+            <p>Dear <strong>{{ $appointment['name'] }}</strong>,</p>
+            <p>The appointment titled "<strong>{{ $appointment['title'] }}</strong>" scheduled for <strong>{{ $appointment['bdate'] }}</strong> has been cancelled.</p>
             <p>We regret any inconvenience caused.</p>
             <p>If you have any questions, please contact our support team.</p>
             <p><a href="#" class="btn">Contact Support</a></p>

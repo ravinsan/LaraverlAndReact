@@ -12,13 +12,13 @@ use Illuminate\Queue\SerializesModels;
 class AppointmentCancelledMail extends Mailable
 {
     use Queueable, SerializesModels;
-
+    public $appointment;
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct($appointment)
     {
-        //
+        $this->appointment = $appointment;
     }
 
     /**
@@ -37,8 +37,9 @@ class AppointmentCancelledMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'view.name',
-        );
+            view: 'email.appointment_cancelled',
+            with: ['appointment' => $this->appointment]
+        );    
     }
 
     /**

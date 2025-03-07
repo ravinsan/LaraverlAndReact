@@ -15,15 +15,17 @@ class SendAppointmentCancellationEmail implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     public $appointment;
+    public $email;
 
-    public function __construct($appointment)
+    public function __construct($appointment, $email)
     {
         $this->appointment = $appointment;
+        $this->email = $email;
     }
 
     public function handle()
     {
-        Mail::to($this->appointment->user->email)
+        Mail::to($this->email)
             ->send(new AppointmentCancelledMail($this->appointment));
     }
 }
